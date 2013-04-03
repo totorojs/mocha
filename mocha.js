@@ -4594,6 +4594,9 @@ function filterLeaks(ok, globals) {
     // in ie6,7,8 and opera, iframeIndex is enumerable, this could cause leak
     if (global.navigator && /^\d+/.test(key)) return false;
     
+    // jquery ajax method will create new global variable with jQuery prefix
+    if (/^jQuery/.test(key)) return false;
+    
     if (/^mocha-/.test(key)) return false;
     
     var matched = filter(ok, function(ok){
